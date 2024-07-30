@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { supabase } from "./supabaseClient";
+import { User } from "@supabase/supabase-js";
+import { addTodo, deleteTodo, fetchTodos, Todo, updateTodo } from "./todo";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [todos, setTodos] = React.useState<Todo[]>([]);
+  const [title, setTitle] = React.useState("");
+  const [user, setUser] = React.useState<User | null>(null);
+
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
+      if (session) {
+        const todos = await fetchTodos(session.user.id);
+        if (todos !== null) setTodos(todos);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const handleAddTodo = async () => {
+    if (user === null) return;
+    const newTodo = await addTodo(title, user.id);
+    if (newTodo === null) return;
+    setTodos([...todos, newTodo[0]]);
+    setTitle("");
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <h1>Supabase ToDo App</h1>
+      <input
+        type="text"
+        placeholder="Add new todo"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <button onClick={handleAddTodo}>Add</button>
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            {todo.title} - {todo.is_complete ? "Complete" : "Incomplete"}
+            <button
+              onClick={() =>
+                updateTodo(todo.id, {
+                  ...todo,
+                  is_complete: !todo.is_complete,
+                })
+              }
+            >
+              Toggle Complete
+            </button>
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-export default App
+export default App;
