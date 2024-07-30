@@ -1,7 +1,7 @@
 import { signUp } from "@/services/auth";
 import React from "react";
 
-export const NewUserForm = () => {
+export const NewUserPage: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);

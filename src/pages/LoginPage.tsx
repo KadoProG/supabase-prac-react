@@ -1,7 +1,7 @@
 import { supabase } from "@/libs/supabaseClient";
 import React, { FormEvent } from "react";
 
-export const LoginForm = () => {
+export const LoginPage: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);

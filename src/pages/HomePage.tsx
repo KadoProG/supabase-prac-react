@@ -9,7 +9,7 @@ import {
 } from "@/services/todo";
 import { supabase } from "@/libs/supabaseClient";
 
-export const Home = () => {
+export const HomePage: React.FC = () => {
   const [todos, setTodos] = React.useState<Todo[]>([]);
   const [title, setTitle] = React.useState("");
   const [user, setUser] = React.useState<User | null>(null);
