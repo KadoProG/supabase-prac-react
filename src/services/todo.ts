@@ -1,13 +1,5 @@
 import { supabase } from '@/libs/supabaseClient';
 
-export interface Todo {
-  id: string;
-  title: string;
-  user_id: string;
-  is_complete: boolean;
-  inserted_at: string;
-}
-
 // Fetch ToDo items
 export const fetchTodos = async (user_id: string): Promise<Todo[]> => {
   const { data, error } = await supabase
@@ -25,10 +17,9 @@ export const fetchTodos = async (user_id: string): Promise<Todo[]> => {
 
 // Add ToDo item
 export const addTodo = async (title: string, user_id: string) => {
-  const { data, error } = await supabase.from('todos').insert([{ title, user_id }]);
+  const { error } = await supabase.from('todos').insert([{ title, user_id }]);
   // eslint-disable-next-line no-console
   if (error) console.error('Error adding todo:', error.message);
-  return data;
 };
 
 // Update ToDo item
