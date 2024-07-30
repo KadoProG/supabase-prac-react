@@ -1,5 +1,3 @@
-import { MyRouter } from "@/routes/Router";
+import { MyRouter } from '@/routes/Router';
 
-export const App: React.FC = () => {
-  return <MyRouter />;
-};
+export const App: React.FC = () => <MyRouter />;

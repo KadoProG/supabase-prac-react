@@ -1,9 +1,9 @@
-import { supabase } from "@/libs/supabaseClient";
-import React, { FormEvent } from "react";
+import { supabase } from '@/libs/supabaseClient';
+import React, { FormEvent } from 'react';
 
 export const LoginPage: React.FC = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState<string | null>(null);
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
@@ -19,7 +19,8 @@ export const LoginPage: React.FC = () => {
       setError(error.message);
     } else {
       setError(null);
-      console.log("Logged in user:", user);
+      // eslint-disable-next-line no-console
+      console.log('Logged in user:', user);
     }
   };
 
@@ -47,7 +48,7 @@ export const LoginPage: React.FC = () => {
             required
           />
         </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <button type="submit">Login</button>
       </form>
     </div>

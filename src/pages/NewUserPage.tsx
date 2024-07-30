@@ -1,9 +1,9 @@
-import { signUp } from "@/services/auth";
-import React from "react";
+import { signUp } from '@/services/auth';
+import React from 'react';
 
 export const NewUserPage: React.FC = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,7 +37,7 @@ export const NewUserPage: React.FC = () => {
           required
         />
       </div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <button type="submit">Sign Up</button>
     </form>
   );

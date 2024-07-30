@@ -1,17 +1,11 @@
-import React from "react";
-import { User } from "@supabase/supabase-js";
-import {
-  addTodo,
-  deleteTodo,
-  fetchTodos,
-  Todo,
-  updateTodo,
-} from "@/services/todo";
-import { supabase } from "@/libs/supabaseClient";
+import React from 'react';
+import { User } from '@supabase/supabase-js';
+import { addTodo, deleteTodo, fetchTodos, Todo, updateTodo } from '@/services/todo';
+import { supabase } from '@/libs/supabaseClient';
 
 export const HomePage: React.FC = () => {
   const [todos, setTodos] = React.useState<Todo[]>([]);
-  const [title, setTitle] = React.useState("");
+  const [title, setTitle] = React.useState('');
   const [user, setUser] = React.useState<User | null>(null);
 
   React.useEffect(() => {
@@ -19,6 +13,7 @@ export const HomePage: React.FC = () => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
+      // eslint-disable-next-line
       console.log(session);
       setUser(session?.user ?? null);
       if (session) {
@@ -34,7 +29,7 @@ export const HomePage: React.FC = () => {
     const newTodo = await addTodo(title, user.id);
     if (newTodo === null) return;
     setTodos([...todos, newTodo[0]]);
-    setTitle("");
+    setTitle('');
   };
 
   return (
@@ -50,7 +45,7 @@ export const HomePage: React.FC = () => {
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
-            {todo.title} - {todo.is_complete ? "Complete" : "Incomplete"}
+            {todo.title} - {todo.is_complete ? 'Complete' : 'Incomplete'}
             <button
               onClick={() =>
                 updateTodo(todo.id, {

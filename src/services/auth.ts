@@ -1,9 +1,8 @@
-import { supabase } from "@/libs/supabaseClient";
+import { supabase } from '@/libs/supabaseClient';
 
 // Sign Up
-export const signUp = async (email: string, password: string) => {
-  return await supabase.auth.signUp({ email, password });
-};
+export const signUp = async (email: string, password: string) =>
+  await supabase.auth.signUp({ email, password });
 
 // Sign In
 export const signIn = async (email: string, password: string) => {
@@ -14,13 +13,17 @@ export const signIn = async (email: string, password: string) => {
     email,
     password,
   });
-  if (error) console.error("Error signing in:", error.message);
-  else console.log("User signed in:", user);
+  // eslint-disable-next-line
+  if (error) console.error('Error signing in:', error.message);
+  // eslint-disable-next-line
+  else console.log('User signed in:', user);
 };
 
 // Sign Out
 export const signOut = async () => {
   const { error } = await supabase.auth.signOut();
-  if (error) console.error("Error signing out:", error.message);
-  else console.log("User signed out");
+  // eslint-disable-next-line
+  if (error) console.error('Error signing out:', error.message);
+  // eslint-disable-next-line
+  else console.log('User signed out');
 };
