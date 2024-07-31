@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Skeleton } from '@/components/common/Skeleton';
 
 const meta = {
-  title: 'common/surfaces/Skeleton',
+  title: 'common/Skeleton',
   component: Skeleton,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
