@@ -1,10 +1,10 @@
+import { TextField } from '@/components/common/TextField';
 import { useTodoList } from '@/hooks/todo/useTodoList';
 import React from 'react';
 
 export const TodoList: React.FC = () => {
   const {
-    title,
-    setTitle,
+    control,
     isLoading,
     isHandleLoading,
     todos,
@@ -16,15 +16,20 @@ export const TodoList: React.FC = () => {
   return (
     <div>
       <h1>Supabase ToDo App</h1>
-      <input
-        type="text"
-        placeholder="Add new todo"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <button onClick={handleAddTodo} disabled={isHandleLoading}>
-        Add
-      </button>
+      <div style={{ display: 'flex', width: '100%' }}>
+        <TextField
+          control={control}
+          name="title"
+          placeholder="Add new todo"
+          required
+          style={{ flex: 1 }}
+        />
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <button onClick={handleAddTodo} disabled={isHandleLoading}>
+            Add
+          </button>
+        </div>
+      </div>
       {isLoading && <p>Loading...</p>}
       <ul>
         {todos.map((todo) => (

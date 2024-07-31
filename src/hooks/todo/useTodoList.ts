@@ -1,11 +1,16 @@
 import { useAuth } from '@/contexts/AuthContextProvider';
 import { addTodo, deleteTodo, fetchTodos, updateTodo } from '@/services/todo';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import useSWR from 'swr';
 
 export const useTodoList = () => {
+  const { control, handleSubmit, reset } = useForm<{ title: string }>({
+    defaultValues: {
+      title: '',
+    },
+  });
   const { session } = useAuth();
-  const [title, setTitle] = React.useState('');
   const [isHandleLoading, setIsHandleLoading] = React.useState<boolean>(false);
 
   const { isLoading, data, mutate } = useSWR(
@@ -28,12 +33,15 @@ export const useTodoList = () => {
 
   const handleAddTodo = React.useCallback(async () => {
     if (!session) return;
-    setIsHandleLoading(true);
-    await addTodo(title, session.user.id);
-    await mutate();
-    setIsHandleLoading(false);
-    setTitle('');
-  }, [session, title, mutate]);
+    handleSubmit(async (formData) => {
+      const { title } = formData;
+      setIsHandleLoading(true);
+      await addTodo(title, session.user.id);
+      await mutate();
+      setIsHandleLoading(false);
+      reset();
+    })();
+  }, [session, mutate, reset, handleSubmit]);
 
   const handleUpdateTodo = React.useCallback(
     async (id: Todo['id']) => {
@@ -63,8 +71,7 @@ export const useTodoList = () => {
   );
 
   return {
-    title,
-    setTitle,
+    control,
     isLoading,
     isHandleLoading,
     todos,
