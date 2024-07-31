@@ -11,7 +11,7 @@
     "prettier": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "check-types": "tsc --noEmit",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
@@ -19,8 +19,7 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.1",
     "react-router-dom": "^6.25.1",
-    "swr": "^2.2.5",
-    "prepare": "husky install"
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -40,6 +39,7 @@
     "lint-staged": "^15.2.7",
     "prettier": "^3.3.3",
     "sass": "^1.77.8",
+    "storybook": "^8.2.6",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
   }
