@@ -1,4 +1,8 @@
 import React from 'react';
-import { TodoList } from '@/components/todo/TodoList';
 
-export const HomePage: React.FC = () => <TodoList />;
+export const HomePage: React.FC = () => (
+  <div>
+    <h1>Home</h1>
+    <p>This is the home page.</p>
+  </div>
+);
