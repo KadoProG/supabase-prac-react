@@ -24,8 +24,13 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = (pro
 
   const { mutate } = useSWR('user', getSession, {
     onSuccess: (data) => {
-      setSession(data.data.session);
-      setStatus('authenticated');
+      if (data.data.session) {
+        setSession(data.data.session);
+        setStatus('authenticated');
+      } else {
+        setSession(null);
+        setStatus('unauthenticated');
+      }
     },
     onError: (error) => {
       // eslint-disable-next-line
