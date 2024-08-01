@@ -2,6 +2,7 @@ import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 import styles from '@/components/common/TextField.module.scss';
 
 export type TextFieldProps<T extends FieldValues> = UseControllerProps<T> & {
+  label?: string;
   /** フォーム上の名前 */
   name: string;
   /** プレースホルダー */
@@ -10,6 +11,8 @@ export type TextFieldProps<T extends FieldValues> = UseControllerProps<T> & {
   required?: boolean;
   /** デザインの追記 */
   style?: React.CSSProperties;
+  /** inputのtype */
+  type: React.HTMLInputTypeAttribute;
 };
 
 export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
@@ -24,10 +27,16 @@ export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
 
   return (
     <div className={styles.container} style={props.style}>
+      <div>
+        <label htmlFor={props.name}>{props.label}</label>
+        {props.required && <span className={styles.required}>*</span>}
+      </div>
       <input
+        id={props.name}
         {...field}
         placeholder={props.placeholder}
         disabled={props.disabled}
+        type={props.type}
         className={`${styles.Input} ${fieldState.error ? styles.InputError : ''}`}
       />
       {fieldState.error && <p className={styles.errorText}>{fieldState.error.message}</p>}
