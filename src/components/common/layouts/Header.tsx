@@ -1,9 +1,22 @@
 import styles from '@/components/common/layouts/Header.module.scss';
 import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
 import { useAuth } from '@/contexts/AuthContextProvider';
+import { signOut } from '@/services/auth';
+import React from 'react';
 
 export const Header: React.FC = () => {
-  const { session, status } = useAuth();
+  const { session, status, mutate } = useAuth();
+
+  const handleSignout = React.useCallback(
+    // eslint-disable-next-line
+    async (e: any) => {
+      if (!session) return;
+      e.preventDefault();
+      await signOut();
+      mutate();
+    },
+    [mutate, session]
+  );
 
   return (
     <header className={styles.header}>
@@ -11,7 +24,9 @@ export const Header: React.FC = () => {
       <div>
         {status === 'unverified' && <LoadingWithMessage message="ユーザ認証を実施しています..." />}
         <p>{session ? 'ログイン済み' : '未ログイン'}</p>
-        <a href={session ? '/logout' : '/login'}>{session ? 'ログアウト' : 'ログイン'}</a>
+        <a href={session ? '' : '/login'} onClick={handleSignout}>
+          {session ? 'ログアウト' : 'ログイン'}
+        </a>
       </div>
     </header>
   );
