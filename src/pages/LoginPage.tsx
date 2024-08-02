@@ -1,10 +1,12 @@
 import { Button } from '@/components/common/button/Button';
+import { Divider } from '@/components/common/Divider';
 import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
 import { TextField } from '@/components/common/TextField';
 import { useAuth } from '@/contexts/AuthContextProvider';
 import { supabase } from '@/libs/supabaseClient';
 import React, { FormEvent } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 export const LoginPage: React.FC = () => {
   const [error, setError] = React.useState<string | null>(null);
@@ -80,6 +82,10 @@ export const LoginPage: React.FC = () => {
           />
         </div>
         <Button type="submit">Login</Button>
+        <Divider label="または" />
+        <p>
+          アカウントの<Link to="/new">新規登録</Link>をします
+        </p>
       </form>
     </div>
   );
