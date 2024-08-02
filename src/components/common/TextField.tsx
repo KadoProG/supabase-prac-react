@@ -27,10 +27,12 @@ export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
 
   return (
     <div className={styles.container} style={props.style}>
-      <div>
-        <label htmlFor={props.name}>{props.label}</label>
-        {props.required && <span className={styles.required}>*</span>}
-      </div>
+      {props.label && (
+        <div>
+          <label htmlFor={props.name}>{props.label}</label>
+          {props.required && <span className={styles.required}>*</span>}
+        </div>
+      )}
       <input
         id={props.name}
         {...field}

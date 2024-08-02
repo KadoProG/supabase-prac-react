@@ -43,11 +43,29 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        height: '100svh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       {isLoading && <LoadingWithMessage message="ログイン中..." />}
-      <h1>Login</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleLogin}>
+      <form
+        onSubmit={handleLogin}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          padding: 16,
+          margin: 16,
+          border: '1px solid #ccc',
+          width: '100%',
+          maxWidth: 400,
+        }}
+      >
+        <h1>Login</h1>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <div>
           <TextField name="email" control={control} required label="メールアドレス" type="email" />
         </div>
