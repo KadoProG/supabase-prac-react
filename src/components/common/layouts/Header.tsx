@@ -6,7 +6,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export const Header: React.FC = () => {
-  const { session, status, mutate } = useAuth();
+  const { session, profile, status, mutate } = useAuth();
 
   const handleSignout = React.useCallback(
     // eslint-disable-next-line
@@ -24,12 +24,19 @@ export const Header: React.FC = () => {
       <Link to="/" className={styles.logo}>
         Header
       </Link>
-      <div>
+      <div className={styles.header__right}>
         {status === 'unverified' && <LoadingWithMessage message="ユーザ認証を実施しています..." />}
-        <p>{session ? 'ログイン済み' : '未ログイン'}</p>
-        <a href={session ? '' : '/login'} onClick={handleSignout}>
+        {session ? (
+          <div className={styles.header__right__profile}>
+            <p>{profile?.username}</p>
+            <img src={profile?.avatar_url} alt={profile?.username} />
+          </div>
+        ) : (
+          <p>未ログイン</p>
+        )}
+        <Link to={session ? '' : '/login'} onClick={handleSignout}>
           {session ? 'ログアウト' : 'ログイン'}
-        </a>
+        </Link>
       </div>
     </header>
   );
