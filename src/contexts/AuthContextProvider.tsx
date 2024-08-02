@@ -31,12 +31,14 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = (pro
         // 認証が通ったらProfileデータを取得
         const { data: profile, error } = await getProfile(data.data.session.user.id);
         setProfile(profile);
-        if (error?.code === 'PGRST116') {
-          // 対象のユーザのProfileが見つからなかった場合はコンソールに出力
-          console.log('Profile not found'); // eslint-disable-line no-console
-        } else {
-          // その他のエラーはコンソールに出力
-          console.error(error); // eslint-disable-line no-console
+        if (error) {
+          if (error?.code === 'PGRST116') {
+            // 対象のユーザのProfileが見つからなかった場合はコンソールに出力
+            console.log('Profile not found'); // eslint-disable-line no-console
+          } else {
+            // その他のエラーはコンソールに出力
+            console.error(error); // eslint-disable-line no-console
+          }
         }
         setSession(data.data.session);
         setStatus('authenticated');
