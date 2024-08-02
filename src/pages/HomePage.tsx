@@ -34,17 +34,23 @@ export const HomePage: React.FC = () => (
       }}
     >
       {links.map((link) => (
-        <Link
-          to={link.url}
-          key={link.url}
+        <div
           style={{
-            background: '#f5f5f5',
-            padding: 8,
+            backgroundColor: '#f5f5f5',
           }}
+          key={link.url}
         >
-          {link.label}
-          <span style={{ background: '#fff', padding: 4 }}>({link.url})</span>
-        </Link>
+          <Link
+            to={link.url}
+            style={{
+              display: 'block',
+              padding: 8,
+            }}
+          >
+            {link.label}
+            <span style={{ background: '#fff', padding: 4 }}>({link.url})</span>
+          </Link>
+        </div>
       ))}
     </div>
   </>
