@@ -33,3 +33,22 @@ export const signOut = async () => {
   // eslint-disable-next-line
   else console.log('User signed out');
 };
+
+// Get Profile
+export const getProfile = async (user_id: string) => {
+  const result = await supabase.from('profiles').select('*').eq('user_id', user_id).single();
+  return result;
+};
+
+export const upsertProfile = async (profile: Profile) => {
+  const { error } = await supabase
+    .from('profiles')
+    .upsert(
+      [{ user_id: profile.user_id, username: profile.username, avatar_url: profile.avatar_url }],
+      { onConflict: 'user_id' }
+    );
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error upserting profile:', error.message);
+  }
+};

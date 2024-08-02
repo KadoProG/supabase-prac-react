@@ -12,6 +12,10 @@ const links: { label: string; url: string }[] = [
     url: '/todo',
   },
   {
+    label: 'プロフィール編集画面',
+    url: '/profile/edit',
+  },
+  {
     label: 'ログイン画面',
     url: '/login',
   },
