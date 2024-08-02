@@ -1,3 +1,4 @@
+import { Button } from '@/components/common/button/Button';
 import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
 import { TextField } from '@/components/common/TextField';
 import { useAuth } from '@/contexts/AuthContextProvider';
@@ -78,7 +79,7 @@ export const LoginPage: React.FC = () => {
             type="password"
           />
         </div>
-        <button type="submit">Login</button>
+        <Button type="submit">Login</Button>
       </form>
     </div>
   );
