@@ -33,3 +33,9 @@ export const signOut = async () => {
   // eslint-disable-next-line
   else console.log('User signed out');
 };
+
+// Get Profile
+export const getProfile = async (user_id: string) => {
+  const result = await supabase.from('profiles').select('*').eq('user_id', user_id).single();
+  return result;
+};
