@@ -1,4 +1,5 @@
 import { Button } from '@/components/common/button/Button';
+import { GoogleButton } from '@/components/common/button/GoogleButton';
 import { Divider } from '@/components/common/Divider';
 import { LoadingWithMessage } from '@/components/common/LoadingWithMessage';
 import { TextField } from '@/components/common/TextField';
@@ -45,6 +46,24 @@ export const LoginPage: React.FC = () => {
     })();
   };
 
+  const handleGoogleLogin = React.useCallback(async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+      },
+    });
+
+    if (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+      return;
+    }
+  }, []);
+
   return (
     <div
       style={{
@@ -83,8 +102,11 @@ export const LoginPage: React.FC = () => {
         </div>
         <Button type="submit">Login</Button>
         <Divider label="または" />
+        <GoogleButton onClick={handleGoogleLogin} type="button" />
+        <Divider label="または" />
         <p>
-          アカウントの<Link to="/new">新規登録</Link>をします
+          アカウントがありませんか？
+          <Link to="/new">新規登録</Link>はこちら
         </p>
       </form>
     </div>
