@@ -25,6 +25,7 @@ export const TodoList: React.FC = () => {
           name="title"
           placeholder="Add new todo"
           required
+          type="text"
           style={{ flex: 1 }}
         />
         <div style={{ display: 'flex', alignItems: 'center' }}>

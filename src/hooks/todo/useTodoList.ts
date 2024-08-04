@@ -45,13 +45,14 @@ export const useTodoList = () => {
 
   const handleUpdateTodo = React.useCallback(
     async (id: Todo['id']) => {
-      if (!session) return;
+      if (!session || !id) return;
       const todo = todos.find((todo) => todo.id === id);
       if (!todo) return;
 
       const newTodo = { ...todo, is_complete: !todo.is_complete };
 
       setIsHandleLoading(true);
+
       await updateTodo(id, newTodo);
       await mutate();
       setIsHandleLoading(false);
@@ -61,7 +62,7 @@ export const useTodoList = () => {
 
   const handleDeleteTodo = React.useCallback(
     async (id: Todo['id']) => {
-      if (!session) return;
+      if (!session || !id) return;
       setIsHandleLoading(true);
       await deleteTodo(id);
       await mutate();
