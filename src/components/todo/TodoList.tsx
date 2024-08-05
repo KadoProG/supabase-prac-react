@@ -4,6 +4,7 @@ import { Skeleton } from '@/components/common/Skeleton';
 import { TextField } from '@/components/common/TextField';
 import { useTodoList } from '@/hooks/todo/useTodoList';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const TodoList: React.FC = () => {
   const {
@@ -46,7 +47,8 @@ export const TodoList: React.FC = () => {
         )}
         {todos.map((todo) => (
           <div key={todo.id} style={{ display: 'flex', gap: 4 }}>
-            {todo.title} - {todo.is_complete ? 'Complete' : 'Incomplete'}
+            <Link to={`/todo/${todo.id}`}>{todo.title}</Link>-{' '}
+            {todo.is_complete ? 'Complete' : 'Incomplete'}
             <Button onClick={() => handleUpdateTodo(todo.id)} disabled={isHandleLoading}>
               {todo.is_complete ? 'Incomplete' : 'Complete'}
             </Button>

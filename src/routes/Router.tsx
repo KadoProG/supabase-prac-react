@@ -4,6 +4,7 @@ import { HomePage } from '@/pages/HomePage';
 import { LoginPage } from '@/pages/LoginPage';
 import { NewUserPage } from '@/pages/NewUserPage';
 import { ProfileEditPage } from '@/pages/ProfileEditPage';
+import { TodoDetailPage } from '@/pages/TodoDetailPage';
 import { TodoPage } from '@/pages/TodoPage';
 import { AuthenticatedOutlet } from '@/routes/outlet/AuthenticatedOutlet';
 import { UnauthenticatedOutlet } from '@/routes/outlet/UnauthenticatedOutlet';
@@ -23,6 +24,7 @@ export const MyRouter: React.FC = () => {
 
         <Route element={<AuthenticatedOutlet />}>
           {/* ログイン済みのルーティング */}
+          <Route path="/todo/:todo_id" element={<TodoDetailPage />} />
           <Route path="/todo" element={<TodoPage />} />
           <Route path="/profile/edit" element={<ProfileEditPage />} />
         </Route>

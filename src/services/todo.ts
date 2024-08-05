@@ -1,4 +1,5 @@
 import { supabase } from '@/libs/supabaseClient';
+import { PostgrestError } from '@supabase/supabase-js';
 
 // Fetch ToDo items
 export const fetchTodos = async (user_id: string): Promise<Todo[]> => {
@@ -11,6 +12,18 @@ export const fetchTodos = async (user_id: string): Promise<Todo[]> => {
     // eslint-disable-next-line no-console
     console.error('Error fetching todos:', error.message);
     return [];
+  }
+  return data;
+};
+
+// Fetch a single ToDo item by ID
+export const fetchTodoById = async (todo_id: string): Promise<Todo | null> => {
+  const { data, error } = await supabase.from('todos').select('*').eq('id', todo_id).single();
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error fetching todo:', error.message);
+    throw error;
+    return null;
   }
   return data;
 };
@@ -37,3 +50,8 @@ export const deleteTodo = async (id: string) => {
   if (error) console.error('Error deleting todo:', error.message);
   return data;
 };
+
+// PostgrestError型ガード
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const isPostgrestError = (error: any): error is PostgrestError =>
+  error && typeof error === 'object' && 'message' in error && 'details' in error;
