@@ -28,7 +28,7 @@ jobs:
 
       - name: vite build
         run: |
-          npm install
+          NODE_ENV=production npm i
           npm run build
 
       - name: rsync deployments
